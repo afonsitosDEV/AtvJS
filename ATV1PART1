@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PART1</title>
+</head>
+<body>
+    <h1> Verificar notas</h1>
+    <label for="nota">Nota:</label> <input type="text" id="nota">
+    <button id="verificarBotao">Verificar</button>
+
+    <script>
+          document.getElementById("verificarBotao").addEventListener("click", function(){
+
+            let  nota = document.getElementById("nota").value;
+  console.log(typeof nota);
+
+if (nota==10){
+    alert ("nota maxima parabéns!!")
+}
+   else if(nota<7 && nota>=4 ){
+    alert ("recuperação.")
+   }
+
+   else if(nota >=7 && nota <=9) {
+    alert ("aprovado!")
+   }
+   else {
+    alert("recuperação");
+   }
+            
+          } )
+
