@@ -21,7 +21,7 @@
             }
         });
                       
-        function epa() {
+      function epa() {
             let nota = parseFloat(document.getElementById("nota").value);
 
             if (!isNaN(nota)) {
@@ -30,20 +30,20 @@
                 } else if (nota >= 7 && nota<10) {
                     alert("Aprovado!");
                 } else if (nota >= 4 && nota<7) {
-                    alert("Recuperação.");
-                    
+                    alert("Recuperação.");                    
                 }
-                else if (nota>10){
-                    alert(" A nota máxima é 10!!!");
+                else if (nota<4){
+                    alert(" Reprovado");
                 }
                  else {
-                    alert("Reprovado.");
+                    alert("Por favor, insira uma nota válida.");
                       }
             }
              else {
                 alert("Por favor, insira uma nota válida.");
                   }
         }
+        
     </script>
 </body>
 </html>
