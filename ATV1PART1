@@ -6,29 +6,39 @@
     <title>PART1</title>
 </head>
 <body>
-    <h1> Verificar notas</h1>
+    
+    <h1>Verificar notas</h1>
     <label for="nota">Nota:</label> <input type="text" id="nota">
     <button id="verificarBotao">Verificar</button>
 
     <script>
-          document.getElementById("verificarBotao").addEventListener("click", function(){
+        const verificar = document.getElementById("verificarBotao");
+        verificar.addEventListener("click", epa);
 
-            let  nota = document.getElementById("nota").value;
-  console.log(typeof nota);
+        document.getElementById("nota").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                epa();
+            }
+        });
 
-if (nota==10){
-    alert ("nota maxima parabéns!!")
-}
-   else if(nota<7 && nota>=4 ){
-    alert ("recuperação.")
-   }
+        function epa() {
+            let nota = parseFloat(document.getElementById("nota").value);
 
-   else if(nota >=7 && nota <=9) {
-    alert ("aprovado!")
-   }
-   else {
-    alert("recuperação");
-   }
-            
-          } )
-
+            if (!isNaN(nota)) {
+                if (nota === 10) {
+                    alert("Nota máxima, parabéns!");
+                } else if (nota >= 7) {
+                    alert("Aprovado!");
+                } else if (nota >= 4) {
+                    alert("Recuperação.");
+                } else {
+                    alert("Reprovado.");
+                }
+            } else {
+                alert("Por favor, insira uma nota válida.");
+            }
+        }
+    </script>
+</body>
+</html>
+       
