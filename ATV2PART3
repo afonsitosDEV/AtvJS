@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PART3</title>
+
+    <style>
+
+body {
+     text-align: center;
+     margin: 50px;
+}
+#tituloId{
+    color: rgb(59, 235, 53);
+    
+}
+
+#exibicao-palavra{
+
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+#letras-chutadas{
+    font-size: 30px;
+    color:rgb(255, 8, 8);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#mensagem {
+    display: none;
+    margin-top: 30px;
+
+}
+#botao-reiniciar{
+    margin:auto;
+   color:white;
+    background-color: rgb(25, 0, 255);
+    border: none;
+    border-radius:5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#botao-reiniciar:hover{
+background-color: rgb(255, 0, 0);
+}
+
+    </style>
+</head>
+
+<body>
+<h1 id="tituloId">JOGO DA FORCA</h1> 
+  
+<div  id="exibicao-palavra"></div>
+
+<input type="text" id="entrada-letra" maxlength="1">
+<button id="btn-chutar" onclick="chutarLetra()">Chutar!</button>
+ 
+<h2>Letras chutadas</h2>
+
+<div id="letras-chutadas"></div>
+
+<div id="mensagem">Você ganhou!!!</div> <br>
+
+<button id="botao-reiniciar" onclick="iniciarjogo()">Reiniciar</button>
+
+    <script>
+        let palavraEscolhida;
+        let exibicaoPalavra;
+        let letrasChutadas;
+        let tentativasRestantes;
+        let numerosErros;
+
+        const listaPalavras= ['java','pagina','web','coletor','resposta','objeto'];
+
+
+        function iniciarjogo(){
+            document.getElementById('botao-reiniciar').style.display= 'none';
+            document.getElementById('entrada-letra').disabled = false;
+
+            palavraEscolhida= listaPalavras[Math.floor(Math.random()*listaPalavras.length)]
+            exibicaoPalavra= Array(palavraEscolhida.length).fill('_');
+
+            //iniciar letras chutadas
+            letrasChutadas= [];
+             
+           //Num maximo de tentativas
+           tentativasRestantes= 7;
+           //iniciar num de erros
+           numerosErros=0;
+
+           atualizarExibicao();
+        }
+    
+        function atualizarExibicao(){
+            document.getElementById("exibicao-palavra").innerText= exibicaoPalavra.join(' ');
+            document.getElementById ("letras-chutadas").innerText = letrasChutadas.join(', ');
+            document.getElementById('mensagem').innerText = '';
+
+            //VERIFICAR JOGO
+            if (tentativasRestantes===0){
+             encerrarJogo("VOCE PERDEU");
+            }
+            else if(!exibicaoPalavra.includes('_')){
+                encerrarJogo('Parabéns você venceu!!!');
+
+            }  
+        }
+
+        function encerrarJogo(mensagem){
+            document.getElementById('entrada-letra').disabled = true;
+           document.getElementById('mensagem').style.display = 'block';
+            document.getElementById('mensagem').innerText = mensagem;
+            document.getElementById('botao-reiniciar').style.display= 'block';
+        }
+
+        function chutarLetra(){
+            const  entradaLetra = document.getElementById('entrada-letra');
+            const letra = entradaLetra.value.toLowerCase();
+
+            if (!letra.match(/[a-zà-ùç]/i)){
+            alert ('insira uma letra válida.');
+            return;}
+             
+            if (letrasChutadas.includes(letra)){
+                alert ('letra já usada!');
+                return;
+
+            }
+               
+            letrasChutadas.push(letra);
+
+            if (palavraEscolhida.includes(letra)){
+                for (let i=0; i< palavraEscolhida.length;i++){
+                    if (palavraEscolhida[i]===letra){
+                        exibicaoPalavra[i] = letra;
+                    }
+                }
+
+            } else {
+                tentativasRestantes--;
+                numerosErros++;
+            }
+
+            entradaLetra.value= '';
+            atualizarExibicao();
+
+        }
+
+      window.onload= iniciarjogo;
+    </script>
+</body>
+</html>
