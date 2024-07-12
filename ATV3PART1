@@ -23,7 +23,7 @@ animation: ouou 1s infinite;
 
 function mensagem(){
   nome= prompt("Qual seu nome");
-document.getElementById("tituloId").innerHTML = nome;
+document.getElementById("tituloId").innerHTML = "BEM-VINDO "+nome;
 }
 
 mensagem()
