@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ <style>
+    #tituloId{
+animation: ouou 1s infinite;
+}
+@keyframes ouou {
+ from {color: red;}
+  to {color: blue;}
+}
+ </style>
+<body>
+
+    <h1 id="tituloId"> </h1>
+    
+<script>
+
+function mensagem(){
+  nome= prompt("Qual seu nome");
+document.getElementById("tituloId").innerHTML = nome;
+}
+
+mensagem()
+</script>
+
+</body>
+</html>
