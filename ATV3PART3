@@ -1,0 +1,89 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+<h1 id="tituloId">Colocar seus dados:</h1>
+
+<h2 id="nome-titulo">nome</h2>
+<input type="text" id ="nomeId"  placeholder="nome">
+
+<h2 id="codigo-titulo">Idade</h2>
+<input type="text"  id="idadeId" placeholder="Idade">
+
+<button id="verificarId">Confirmar!</button>
+<p id="erro-Input"></p>
+
+    <script>
+
+let verificar = document.getElementById("verificarId");
+verificar.addEventListener("click", verifica);
+
+function verifica(){
+
+    let idade= parseFloat(document.getElementById("idadeId").value);
+    let nome=document.getElementById("nomeId").value;
+      
+ if(!isNaN(idade)&& idade>0 ){
+     if (nome === '' || !isNaN(nome)) {
+        document.getElementById("erro-Input").innerHTML= 'Algum dos campos não foram preenchidos corretamente!';
+     }
+      
+      else if(idade>=18){
+       document.getElementById("erro-Input").innerHTML= '';
+       document.getElementById("idadeId").value='';
+       document.getElementById("idadeId").placeholder="Senha";
+       document.getElementById("nomeId").value='';
+       document.getElementById("nomeId").placeholder="Nome de usuario";
+       document.getElementById("tituloId").innerHTML= "Login de usuario";
+       document.getElementById("nome-titulo").innerHTML= "Nome de usuario:";
+       document.getElementById("codigo-titulo").innerHTML= "Senha:";
+
+        verificar.innerHTML="Login";
+        verificar.removeEventListener("click", verifica);
+        verificar.addEventListener("click", verificarLogin);
+        document.getElementById("idadeId").type = "password";
+      }
+
+      else{
+        document.body.innerHTML = '';
+        const h1 = document.createElement('h1');
+        document.body.appendChild(h1);
+        const p = document.createElement('p');
+        document.body.appendChild(p);
+    
+        h1.textContent = 'Login proibido para menores de  18!';
+        p.textContent = 'Ola '+nome+ ',devido você ser menor de idade nao podera fazer login!';                
+      }
+     
+    }
+    else{
+        document.getElementById("erro-Input").innerHTML= 'Algum dos campos não foram preenchidos corretamente!';
+    }
+}
+function verificarLogin(){
+        let usuario= document.getElementById("nomeId").value;
+        let senha= document.getElementById("idadeId").value;
+        
+        if(usuario=='' || senha==''){
+            document.getElementById("erro-Input").innerHTML= 'Algum dos campos não foram preenchidos corretamente!'; 
+        }
+        else{
+            document.getElementById("erro-Input").innerHTML= '';
+            let Usuarios =[usuario,senha];
+            console.log(Usuarios);
+            alert("Login salvo");
+           
+        }
+ }
+    
+    </script>
+</body>
+</html>
