@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Um simples conselho</h1>
+    <h3 id ="mensagemId"></h3>
+    <button id="ConfirmarId">Clicar</button>
+    
+<script>
+
+document.getElementById("ConfirmarId").addEventListener("click", async function(){
+try{
+   let resposta= await fetch("https://api.adviceslip.com/advice");
+    let data = await resposta.json();
+     console.log(data);
+     document.getElementById("mensagemId").innerHTML= data.slip.advice;
+    
+}
+catch(error){
+    console.error("Erro:", error);
+}
+});
+
+</script> 
+
+</body>
+</html>
