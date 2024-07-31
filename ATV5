@@ -1,0 +1,77 @@
+class Dispositivo {
+            constructor(modelo, categoria, serial) {
+                this.modelo = modelo;
+                this.categoria = categoria;
+                this.disponivel = true;
+                this.serial = serial;
+            }
+
+            emprestar() {
+                if (this.disponivel) {
+                    this.disponivel = false;
+                    console.log("dispositivo emprestado.");
+                    return true; 
+                } else {
+                    return false; 
+                }
+            }
+
+            devolver() {
+                this.disponivel = true;
+                console.log("Dispositivo devolvido ao estoque!");
+            }
+        }
+
+class CentroDeEmprestimos{
+        constructor(){
+                this.inventario=[];
+            }
+        
+
+        adicionarDispositivos(dispositivo){
+            this.inventario.push(dispositivo);
+        }
+
+        verificarDispositivo(verificarSerial) {
+                for (let i = 0; i < this.inventario.length; i++) {
+                    if (this.inventario[i].serial === verificarSerial) {
+                        console.log("Serial de Dispositivo Válido");
+                        return true;
+                    }
+                }
+                console.log("Serial de Dispositivo não encontrado.");
+                return false;
+            }
+
+        emprestarDispositivo(verificarSerial) {
+                for (let i = 0; i < this.inventario.length; i++) {
+                    if (this.inventario[i].serial === verificarSerial) {
+                        return this.inventario[i].emprestar();
+                    }
+                }
+                return false;
+            }
+
+            devolverDispositivo(verificarSerial) {
+                for (let i = 0; i < this.inventario.length; i++) {
+                    if (this.inventario[i].serial === verificarSerial) {
+                        this.inventario[i].devolver();
+                        return true;
+                        
+                    }
+                }
+                console.log("Não foi possível devolver esse dispositivo!");
+                return false;
+            }
+}
+
+const dispositivo1 = new Dispositivo('Xiaomi', 'Celular', '123456');
+const dispositivo2 = new Dispositivo('Sansung', 'Tablet', '654321');
+
+const centro = new CentroDeEmprestimos();
+centro.adicionarDispositivos(dispositivo1);
+centro.adicionarDispositivos(dispositivo2);
+
+console.log(centro.verificarDispositivo('123456')); 
+console.log(centro.emprestarDispositivo('123456')); 
+console.log(centro.devolverDispositivo('123456')); 
