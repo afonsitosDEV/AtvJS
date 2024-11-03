@@ -37,11 +37,11 @@
         let perigos = [];
 
         function inicializarJogo() {
-            posicaoJogador = { x: 0, y: 0 }; // Início no canto superior esquerdo
-            metas = gerarPosicoes(tamanhoTabuleiro, 3); // 3 posições de vitória
-            perigos = gerarPosicoes(tamanhoTabuleiro, 2); // 2 posições de derrota
+            posicaoJogador = { x: 0, y: 0 };
+            metas = gerarPosicoes(tamanhoTabuleiro, 3);
+            perigos = gerarPosicoes(tamanhoTabuleiro, 2);
             mensagem.textContent = "";
-            reiniciarBtn.style.display = "none"; // Esconde o botão de reinício
+            reiniciarBtn.style.display = "none";
             criarTabuleiro();
             atualizarTabuleiro();
             document.addEventListener("keydown", moverJogador);
@@ -54,7 +54,6 @@
                     x: Math.floor(Math.random() * tamanho),
                     y: Math.floor(Math.random() * tamanho)
                 };
-                // Evita posições duplicadas
                 if (!posicoes.some(p => p.x === novaPosicao.x && p.y === novaPosicao.y)) {
                     posicoes.push(novaPosicao);
                 }
@@ -63,7 +62,7 @@
         }
 
         function criarTabuleiro() {
-            tabuleiro.innerHTML = ""; // Limpa o tabuleiro
+            tabuleiro.innerHTML = "";
             for (let i = 0; i < tamanhoTabuleiro; i++) {
                 for (let j = 0; j < tamanhoTabuleiro; j++) {
                     const celula = document.createElement("div");
@@ -79,16 +78,6 @@
 
             const jogador = celulas[posicaoJogador.x * tamanhoTabuleiro + posicaoJogador.y];
             jogador.textContent = "*";
-
-            // Marca as células de vitória e derrota
-            metas.forEach(meta => {
-                const celulaMeta = celulas[meta.x * tamanhoTabuleiro + meta.y];
-                celulaMeta.textContent = "V"; // 'V' para vitória
-            });
-            perigos.forEach(perigo => {
-                const celulaPerigo = celulas[perigo.x * tamanhoTabuleiro + perigo.y];
-                celulaPerigo.textContent = "P"; // 'P' para perigo
-            });
 
             verificarCondicoes();
         }
@@ -125,12 +114,10 @@
 
         function finalizarJogo() {
             document.removeEventListener("keydown", moverJogador);
-            reiniciarBtn.style.display = "block"; // Exibe o botão de reinício
+            reiniciarBtn.style.display = "block";
         }
 
         reiniciarBtn.addEventListener("click", inicializarJogo);
-
-        // Inicializa o jogo ao carregar a página
         inicializarJogo();
     </script>
 </body>
