@@ -1,0 +1,64 @@
+const fs = require('fs');
+const readline = require('readline');
+const path = require('path');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+function perguntar(pergunta) {
+  return new Promise((resolve, reject) => {
+    rl.question(pergunta, (resposta) => {
+      if (!resposta.trim()) {
+        reject('A resposta não pode ser vazia.');
+      } else {
+        resolve(resposta);
+      }
+    });
+  });
+}
+
+async function coletarDados() {
+  try {
+    const nome = await perguntar('Digite seu nome: ');
+    const idade = await perguntar('Digite sua idade: ');
+    const telefone = await perguntar('Digite seu telefone: ');
+    const endereco = await perguntar('Digite seu endereço: ');
+    const profissao = await perguntar('Digite sua profissão: ');
+
+    const dirCurriculos = './Currículos';
+    const dirProfissao = path.join(dirCurriculos, profissao);
+    const filePath = path.join(dirProfissao, `${nome}.txt`);
+
+    if (!fs.existsSync(dirCurriculos)) {
+      fs.mkdirSync(dirCurriculos);
+      console.log('Pasta "Currículos" criada!');
+    }
+
+    if (!fs.existsSync(dirProfissao)) {
+      fs.mkdirSync(dirProfissao);
+      console.log(`Pasta para a profissão "${profissao}" criada!`);
+    }
+
+    const dados = `Nome: ${nome}\nIdade: ${idade}\nTelefone: ${telefone}\nEndereço: ${endereco}\nProfissão: ${profissao}`;
+
+    fs.writeFileSync(filePath, dados);
+    console.log(`Currículo de ${nome} salvo com sucesso!`);
+
+    rl.question('Deseja adicionar outro currículo? (s/n): ', (resposta) => {
+      if (resposta.toLowerCase() === 's') {
+        coletarDados(); // Chama novamente a função para coletar outro currículo
+      } else {
+        rl.close();
+        console.log('Programa finalizado.');
+      }
+    });
+
+  } catch (error) {
+    console.error('Erro:', error);
+    rl.close();
+  }
+}
+
+coletarDados(); //cumprindo o limite da atividade, não foi feito por mim.
